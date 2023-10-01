@@ -12,39 +12,39 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# pip install ultralytics
+# sudo apt-get update && sudo apt-get install libgl1
+
 import streamlit as st
 from streamlit.logger import get_logger
+from ultralytics import YOLO
+from PIL import Image, ImageOps
 
 LOGGER = get_logger(__name__)
 
+def predict(img):
+    model = YOLO('best.pt')
+    res = model(img)
+    st.image(res[0].plot())
+    return
 
 def run():
     st.set_page_config(
-        page_title="Hello",
+        page_title="Cloth Segmentation",
         page_icon="👋",
     )
 
-    st.write("# Welcome to Streamlit! 👋")
+    st.write("# Cloth Segmentation Project")
 
-    st.sidebar.success("Select a demo above.")
+    # st.sidebar.success("Select a demo above.")
 
-    st.markdown(
-        """
-        Streamlit is an open-source app framework built specifically for
-        Machine Learning and Data Science projects.
-        **👈 Select a demo from the sidebar** to see some examples
-        of what Streamlit can do!
-        ### Want to learn more?
-        - Check out [streamlit.io](https://streamlit.io)
-        - Jump into our [documentation](https://docs.streamlit.io)
-        - Ask a question in our [community
-          forums](https://discuss.streamlit.io)
-        ### See more complex demos
-        - Use a neural net to [analyze the Udacity Self-driving Car Image
-          Dataset](https://github.com/streamlit/demo-self-driving)
-        - Explore a [New York City rideshare dataset](https://github.com/streamlit/demo-uber-nyc-pickups)
-    """
-    )
+    uploaded_file = st.file_uploader(label="Upload image")
+
+    if uploaded_file:
+        img = Image.open(uploaded_file)
+        img = ImageOps.exif_transpose(img)
+        st.image(img)
+        predict(img)
 
 
 if __name__ == "__main__":
