@@ -19,16 +19,11 @@ import streamlit as st
 from streamlit.logger import get_logger
 import sys
 import subprocess
-from ultralytics import YOLO
+#from ultralytics import YOLO
 from PIL import Image, ImageOps
+from predict import predict
 
 LOGGER = get_logger(__name__)
-
-def predict(img):
-    model = YOLO('best.pt')
-    res = model(img)
-    st.image(res[0].plot())
-    return
 
 def run():
     st.set_page_config(
