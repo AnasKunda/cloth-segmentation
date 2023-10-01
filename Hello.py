@@ -17,6 +17,8 @@
 
 import streamlit as st
 from streamlit.logger import get_logger
+import sys
+import subprocess
 from ultralytics import YOLO
 from PIL import Image, ImageOps
 
@@ -33,6 +35,8 @@ def run():
         page_title="Cloth Segmentation",
         page_icon="👋",
     )
+
+    subprocess.run([f"{sys.executable}", "preDeploy.sh"])
 
     st.write("# Cloth Segmentation Project")
 
