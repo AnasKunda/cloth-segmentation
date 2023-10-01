@@ -19,7 +19,7 @@ import streamlit as st
 from streamlit.logger import get_logger
 import sys
 import subprocess
-subprocess.run([f"{sys.executable}", "sudo preDeploy.sh"])
+#subprocess.run([f"{sys.executable}", "sudo preDeploy.sh"])
 #from ultralytics import YOLO
 from PIL import Image, ImageOps
 from predict import predict

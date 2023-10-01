@@ -4,4 +4,3 @@ pandas
 pydeck
 streamlit
 ultralytics
-opencv-python-headless
