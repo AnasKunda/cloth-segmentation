@@ -20,7 +20,7 @@ from streamlit.logger import get_logger
 import sys
 #from ultralytics import YOLO
 from PIL import Image, ImageOps
-from predict import predict
+from utils import predict, extract_segment
 
 LOGGER = get_logger(__name__)
 
@@ -40,7 +40,19 @@ def run():
         img = Image.open(uploaded_file)
         img = ImageOps.exif_transpose(img)
         st.image(img)
-        predict(img)
+        res = predict(img)
+    
+    if uploaded_file:
+        segmented_images = extract_segment(res)
+        for class_label, image in segmented_images.items():
+            c = class_label.split('_')[0]
+            st.download_button(
+                label = f'Download {c} segment in PNG',
+                data = image,
+                file_name = f'segment_{c}.png',
+                mime = 'image/png'
+            )
+
 
 
 if __name__ == "__main__":
