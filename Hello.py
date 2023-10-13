@@ -18,7 +18,6 @@
 import streamlit as st
 from streamlit.logger import get_logger
 import sys
-#from ultralytics import YOLO
 from PIL import Image, ImageOps
 from utils import predict, extract_segment
 
@@ -27,23 +26,24 @@ LOGGER = get_logger(__name__)
 def run():
     st.set_page_config(
         page_title="Cloth Segmentation",
-        page_icon="👋",
+        page_icon=":dress:",
     )
 
     st.write("# Cloth Segmentation Project")
-
-    # st.sidebar.success("Select a demo above.")
-
+    # file uploaded widget
     uploaded_file = st.file_uploader(label="Upload image")
 
     if uploaded_file:
         img = Image.open(uploaded_file)
+        # Removing any exif orientation TAG to avoid auto rotation of image
         img = ImageOps.exif_transpose(img)
+        # Display the image
         st.image(img)
+        # predict segments
         res = predict(img)
-    
-    if uploaded_file:
+        # extract predicted segments
         segmented_images = extract_segment(res)
+        # add a download button for each predicted segment
         for class_label, image in segmented_images.items():
             c = class_label.split('_')[0]
             st.download_button(
@@ -52,7 +52,6 @@ def run():
                 file_name = f'segment_{c}.png',
                 mime = 'image/png'
             )
-
 
 
 if __name__ == "__main__":
