@@ -9,3 +9,9 @@ This repo contains code of a streamlit web app used for cloth segmentation.
 # Web App
 
 The web app is created using Streamlit. (URL: https://cloth-segmentation-216oli12ryc.streamlit.app/)
+
+|  File  |  Description  |
+|  ---   |  ---          |
+|Hello.py| Main file running the web app. |
+|utils.py| Utility functions used for data processing and inference. |
+|best.pt | YOLOv8 Model Weights |
